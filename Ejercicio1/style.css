@@ -1,0 +1,28 @@
+body{
+	background:gray;
+	pad
+}
+#azul{
+	background:blue;
+	margin-left:400px;
+	margin-right:400px;
+	height:200px;
+}
+#azul h1{
+	color:white;
+	text-align:center;
+	padding-top:60px;
+	padding-right:100px;
+	padding-left:100px;
+}
+#blanco{
+	background:white;
+	margin-left:400px;
+	margin-right:400px;
+	height:500px;
+	padding-left:200px;
+}
+table,tr,th,td{
+	border:1px solid black;
+	border-collapse:collapse;
+}
