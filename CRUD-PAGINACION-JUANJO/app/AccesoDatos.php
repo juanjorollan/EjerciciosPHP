@@ -72,14 +72,14 @@ class AccesoDatos {
     }
     
     // SELECT Devuelvo un usuario o false
-    public function getUsuario (String $login) {
+    public function getUsuario (String $id) {
         $user = false;
         
         $stmt_usuario   = $this->dbh->prepare("select * from clientes where id =?");
         if ( $stmt_usuario == false) die ($this->dbh->error);
 
         // Enlazo $login con el primer ? 
-        $stmt_usuario->bind_param("s",$login);
+        $stmt_usuario->bind_param("s",$id);
         $stmt_usuario->execute();
         $resultado = $stmt_usuario->get_result();
         if ( $resultado ){
@@ -90,27 +90,27 @@ class AccesoDatos {
     }
     
     // UPDATE
-    public function modUsuario($user):bool{
+    public function modUsuario($cliente):bool{
       
         $stmt_moduser   = $this->dbh->prepare("update clientes set id=?, first_name=?, email=? , gender=?,ip_address=?,telefono=? where id=?");
         if ( $stmt_moduser == false) die ($this->dbh->error);
 
-        $stmt_moduser->bind_param("sssssss",$user->id,$user->first_name, $user->email, $user->gender,$user->ip_address,$user->telefono,$user->id);
+        $stmt_moduser->bind_param("sssssss",$cliente->id,$cliente->first_name, $cliente->email, $cliente->gender,$cliente->ip_address,$cliente->telefono,$cliente->id);
         $stmt_moduser->execute();
-        $resu = ($this->dbh->affected_rows  == 1);
-        return $resu;
+        $resultado = ($this->dbh->affected_rows  == 1);
+        return $resultado;
     }
 
     //INSERT
-    public function addUsuario($user):bool{
+    public function addUsuario($cliente):bool{
        
         $stmt_creauser  = $this->dbh->prepare("insert into clientes (id,first_name,email,gender,ip_address,telefono) Values(?,?,?,?,?,?)");
         if ( $stmt_creauser == false) die ($this->dbh->error);
 
-        $stmt_creauser->bind_param("ssssss",$user->id,$user->first_name, $user->email, $user->gender,$user->ip_address,$user->telefono);
+        $stmt_creauser->bind_param("ssssss",$cliente->id,$cliente->first_name, $cliente->email, $cliente->gender,$cliente->ip_address,$cliente->telefono);
         $stmt_creauser->execute();
-        $resu = ($this->dbh->affected_rows  == 1);
-        return $resu;
+        $resultado = ($this->dbh->affected_rows  == 1);
+        return $resultado;
     }
      
     //DELETE
@@ -120,8 +120,8 @@ class AccesoDatos {
        
         $stmt_boruser->bind_param("s", $id);
         $stmt_boruser->execute();
-        $resu = ($this->dbh->affected_rows  == 1);
-        return $resu;
+        $resultado = ($this->dbh->affected_rows  == 1);
+        return $resultado;
     }  
     
      // Evito que se pueda clonar el objeto. (SINGLETON)
